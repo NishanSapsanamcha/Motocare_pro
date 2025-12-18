@@ -59,6 +59,8 @@ import com.example.motocare_pro.R
 import com.example.motocare_pro.ui.theme.MotoGrey
 import com.example.motocare_pro.ui.theme.MotoNavy
 import com.example.motocare_pro.ui.theme.MotoOrange
+import com.example.motocare_pro.RegistrationActivity
+import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -84,9 +86,8 @@ fun loginUI() {
         "User",
         Context.MODE_PRIVATE
     )
+    val auth = remember { FirebaseAuth.getInstance() }
 
-    val localEmail: String? = sharedPreferences.getString("email", "")
-    val localPassword: String? = sharedPreferences.getString("password", "")
 
     Scaffold { padding ->
         Column(
@@ -223,28 +224,32 @@ fun loginUI() {
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                // TODO: navigate to forgot password
+                                val intent = Intent(context, ForgotPasswordActivity::class.java)
+                                context.startActivity(intent)
                             }
                             .padding(vertical = 12.dp)
                     )
 
                     Button(
                         onClick = {
-                            if (localEmail == email && localPassword == password) {
-                                val intent = Intent(
-                                    context, DashboardActivity::class.java
-                                )
-
-                                context.startActivity(intent)
-                                activity.finish()
+                            if (email.isBlank() || password.isBlank()) {
+                                Toast.makeText(context, "Please enter email and password", Toast.LENGTH_SHORT).show()
                             } else {
-                                Toast.makeText(
-                                    context,
-                                    "Invalid login",
-                                    Toast.LENGTH_SHORT
-                                ).show()
+                                auth.signInWithEmailAndPassword(email.trim(), password)
+                                    .addOnCompleteListener { task ->
+                                        if (task.isSuccessful) {
+                                            val intent = Intent(context, DashboardActivity::class.java)
+                                            context.startActivity(intent)
+                                            activity.finish()
+                                        } else {
+                                            Toast.makeText(
+                                                context,
+                                                task.exception?.localizedMessage ?: "Invalid login",
+                                                Toast.LENGTH_LONG
+                                            ).show()
+                                        }
+                                    }
                             }
-
                         },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MotoOrange,
@@ -265,7 +270,7 @@ fun loginUI() {
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // SIGN UP TEXT
+            // SIGN UP PART
             Text(
                 buildAnnotatedString {
                     append("Don't have an account? ")
@@ -276,12 +281,15 @@ fun loginUI() {
                 modifier = Modifier
                     .padding(horizontal = 16.dp)
                     .clickable {
-                        // TODO: navigate to sign up
+                        val intent = Intent(context, RegistrationActivity::class.java)
+                        context.startActivity(intent)
+                        // activity.finish()
                     },
                 textAlign = TextAlign.Center,
                 color = Color.White,
                 fontSize = 14.sp
             )
+
         }
     }
 }

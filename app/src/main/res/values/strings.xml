@@ -2,4 +2,9 @@
     <string name="app_name">Motocare_pro</string>
     <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_dashboard">DashboardActivity</string>
+    <string name="title_activity_registration">RegistrationActivity</string>
+    <string name="title_activity_forgot_password">ForgotPasswordActivity</string>
+    <string name="title_activity_profile">ProfileActivity</string>
+    <string name="title_activity_appointment">AppointmentActivity</string>
+    <string name="title_activity_garages">GaragesActivity</string>
 </resources>

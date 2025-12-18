@@ -12,6 +12,61 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Motocare_pro">
         <activity
+            android:name=".GaragesActivity"
+            android:exported="true"
+            android:label="@string/title_activity_garages"
+            android:theme="@style/Theme.Motocare_pro">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".AppointmentActivity"
+            android:exported="true"
+            android:label="@string/title_activity_appointment"
+            android:theme="@style/Theme.Motocare_pro">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="true"
+            android:label="@string/title_activity_profile"
+            android:theme="@style/Theme.Motocare_pro">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="true"
+            android:label="@string/title_activity_forgot_password"
+            android:theme="@style/Theme.Motocare_pro">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RegistrationActivity"
+            android:exported="true"
+            android:label="@string/title_activity_registration"
+            android:theme="@style/Theme.Motocare_pro">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".DashboardActivity"
             android:exported="true"
             android:label="@string/title_activity_dashboard"
