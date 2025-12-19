@@ -13,7 +13,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -55,11 +54,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.motocare_pro.ui.theme.Black
-import com.example.motocare_pro.R
 import com.example.motocare_pro.ui.theme.MotoGrey
 import com.example.motocare_pro.ui.theme.MotoNavy
 import com.example.motocare_pro.ui.theme.MotoOrange
-import com.example.motocare_pro.RegistrationActivity
+import com.example.motocare_pro.view.ForgotPasswordActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : ComponentActivity() {

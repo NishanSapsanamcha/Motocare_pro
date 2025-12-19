@@ -45,7 +45,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".view.ForgotPasswordActivity"
             android:exported="true"
             android:label="@string/title_activity_forgot_password"
             android:theme="@style/Theme.Motocare_pro">
