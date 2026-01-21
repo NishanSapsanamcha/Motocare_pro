@@ -1,4 +1,4 @@
-package com.example.motocare_pro
+package com.example.motocare_pro.view
 
 import android.app.Activity
 import android.content.Intent
@@ -30,6 +30,7 @@ import com.example.motocare_pro.ui.theme.MotoOrange
 import com.example.motocare_pro.ui.theme.White
 import com.google.firebase.auth.FirebaseAuth
 import androidx.compose.runtime.*
+import com.example.motocare_pro.R
 import com.google.firebase.firestore.FirebaseFirestore
 
 class DashboardActivity : ComponentActivity() {

@@ -1,4 +1,4 @@
-package com.example.motocare_pro
+package com.example.motocare_pro.view
 
 import android.app.Activity
 import android.os.Bundle
@@ -56,8 +56,6 @@ import com.example.motocare_pro.ui.theme.MotoOrange
 import com.example.motocare_pro.viewmodel.userViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FieldValue
 
 class RegistrationActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,4 +1,4 @@
-package com.example.motocare_pro
+package com.example.motocare_pro.view
 
 import android.app.Activity
 import android.os.Bundle

@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.android)
     // Add the Google services Gradle plugin
     id("com.google.gms.google-services")
 }
@@ -62,19 +62,11 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-    // Import the Firebase BoM
     implementation(platform("com.google.firebase:firebase-bom:34.6.0"))
-
-    // TODO: Add the dependencies for Firebase products you want to use
-    // When using the BoM, don't specify versions in Firebase dependencies
-    // Firebase BoM (keep your 34.6.0)
-    implementation(platform("com.google.firebase:firebase-bom:34.6.0"))
-
-// Use NON-KTX artifacts (KTX is now merged in)
     implementation("com.google.firebase:firebase-analytics")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore")
-    implementation("io.coil-kt:coil-compose:2.6.0")
-
-
+    implementation("io.coil-kt.coil3:coil-compose:3.3.0")
+    implementation("com.cloudinary:cloudinary-android:2.1.0")
+    implementation("androidx.compose.runtime:runtime-livedata:1.10.0")
 }

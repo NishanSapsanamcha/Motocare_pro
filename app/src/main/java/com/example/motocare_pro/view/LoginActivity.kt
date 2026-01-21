@@ -1,4 +1,4 @@
-package com.example.motocare_pro
+package com.example.motocare_pro.view
 
 import android.app.Activity
 import android.content.Context
@@ -53,11 +53,11 @@ import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.motocare_pro.R
 import com.example.motocare_pro.ui.theme.Black
 import com.example.motocare_pro.ui.theme.MotoGrey
 import com.example.motocare_pro.ui.theme.MotoNavy
 import com.example.motocare_pro.ui.theme.MotoOrange
-import com.example.motocare_pro.view.ForgotPasswordActivity
 import com.google.firebase.auth.FirebaseAuth
 
 class LoginActivity : ComponentActivity() {

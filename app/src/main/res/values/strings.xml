@@ -7,4 +7,6 @@
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_appointment">AppointmentActivity</string>
     <string name="title_activity_garages">GaragesActivity</string>
+    <string name="title_activity_add_garrage">AddGarrageActivity</string>
+    <string name="title_activity_garrage_screen">GarrageScreen</string>
 </resources>
