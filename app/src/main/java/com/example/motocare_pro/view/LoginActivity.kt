@@ -155,7 +155,7 @@ fun loginUI() {
                         },
                         shape = RoundedCornerShape(15.dp),
                         placeholder = {
-                            Text("johndoe@gmail.com")
+                            Text("youremail@gmail.com")
                         },
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Email

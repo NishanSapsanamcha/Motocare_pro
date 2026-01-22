@@ -12,7 +12,8 @@ data class GarrageModel(
             "garrageId" to garrageId,
             "name" to name,
             "location" to location,
-            "contact" to contact
+            "contact" to contact,
+            "image" to image
         )
     }
 }

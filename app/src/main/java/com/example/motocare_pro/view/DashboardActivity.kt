@@ -127,7 +127,7 @@ fun DashboardUI() {
 
                     // ✅ Now fullName is defined and will update automatically
                     Text(
-                        "Welcome, $fullName",
+                        "Hello, $fullName",
                         modifier = Modifier
                             .fillMaxWidth()
                             .padding(top = 8.dp, bottom = 16.dp),
@@ -139,7 +139,7 @@ fun DashboardUI() {
                     )
 
                     Text(
-                        "Good Morning",
+                        "Welcome to Motocare Pro",
                         fontWeight = FontWeight.Bold,
                         fontSize = 16.sp,
                         color = Black.copy(alpha = 0.8f)

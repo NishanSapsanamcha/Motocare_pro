@@ -36,6 +36,12 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.motocare_pro.repository.GarrageRepoImpl
 import com.example.motocare_pro.viewmodel.GarrageViewModel
+import android.util.Log
+import coil3.compose.AsyncImage
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.foundation.layout.height
+import androidx.compose.ui.res.painterResource
+import com.example.motocare_pro.R
 
 @Composable
 fun GarrageScreen() {
@@ -64,12 +70,12 @@ fun GarrageScreen() {
             }
         }
     ) { paddingValues ->
-            LazyColumn(
+        LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues)
                 .background(Color.White)
-            ) {
+        ) {
             item {
                 if (showDialog) {
                     AlertDialog(
@@ -95,52 +101,68 @@ fun GarrageScreen() {
             }
             items(allGarrages.value!!.size) { index ->
                 val data = allGarrages.value!![index]
-                Card(modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(vertical = 10.dp)) {
-
-                    Row(modifier = Modifier
+                Log.d("GarrageScreen", "imageUrl = '${data.image}'")
+                Card(
+                    modifier = Modifier
                         .fillMaxWidth()
-                        .padding(10.dp)) {
-                        Column(
-                            modifier = Modifier.weight(1f)
-                        ) {
-                            Text(data.name)
-                            Text(data.location)
-                            Text(data.contact)
+                        .padding(vertical = 10.dp)
+                ) {
+                    Column {
 
-                        }
-                        Column(
-                            verticalArrangement = Arrangement.Top
+                        // 🔴 THIS IS THE IMAGE PART (YOU WERE MISSING THIS)
+                        AsyncImage(
+                            model = data.image.trim(),
+                            contentDescription = "Garage Image",
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .height(180.dp),
+                            contentScale = ContentScale.Crop,
+                            placeholder = painterResource(R.drawable.placeholder),
+                            error = painterResource(R.drawable.placeholder)
+                        )
+
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(10.dp)
                         ) {
-                            IconButton(onClick = {
-                                showDialog = true
-                            }) {
-                                Icon(
-                                    Icons.Default.Edit,
-                                    contentDescription = null,
-                                    tint = Color.Green
-                                )
+                            Column(
+                                modifier = Modifier.weight(1f)
+                            ) {
+                                Text(data.name)
+                                Text(data.location)
+                                Text(data.contact)
                             }
-                            IconButton(onClick = {
-                                garrageViewModel.deleteGarrage(data.garrageId) { succes, msg ->
-                                    if (succes) {
-                                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
-                                    } else {
-                                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
 
-                                    }
+                            Column(
+                                verticalArrangement = Arrangement.Top
+                            ) {
+                                IconButton(onClick = {
+                                    showDialog = true
+                                }) {
+                                    Icon(
+                                        Icons.Default.Edit,
+                                        contentDescription = null,
+                                        tint = Color.Green
+                                    )
                                 }
-                            }) {
-                                Icon(
-                                    Icons.Default.Delete,
-                                    contentDescription = null,
-                                    tint = Color.Red
-                                )
+
+                                IconButton(onClick = {
+                                    garrageViewModel.deleteGarrage(data.garrageId) { success, msg ->
+                                        Toast.makeText(context, msg, Toast.LENGTH_SHORT).show()
+                                    }
+                                }) {
+                                    Icon(
+                                        Icons.Default.Delete,
+                                        contentDescription = null,
+                                        tint = Color.Red
+                                    )
+                                }
                             }
                         }
                     }
                 }
+
             }
         }
     }

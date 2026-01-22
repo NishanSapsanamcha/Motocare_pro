@@ -27,6 +27,7 @@ class ImageUtils(private val activity: Activity, private val registryOwner: Acti
         ) { result ->
             val uri = result.data?.data
             if (result.resultCode == Activity.RESULT_OK && uri != null) {
+                Log.d("ImageUtils", "Selected uri = $uri")
                 onImageSelectedCallback?.invoke(uri)
             } else {
                 Log.e("ImageUtils", "Image selection cancelled or failed")

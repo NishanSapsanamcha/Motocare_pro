@@ -3,11 +3,14 @@ package com.example.motocare_pro.view
 import android.app.Activity
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,7 +21,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -30,7 +32,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -38,33 +42,37 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil3.compose.AsyncImage
+import com.example.motocare_pro.R
 import com.example.motocare_pro.model.GarrageModel
 import com.example.motocare_pro.repository.GarrageRepoImpl
 import com.example.motocare_pro.ui.theme.Blue
 import com.example.motocare_pro.ui.theme.PurpleGrey80
 import com.example.motocare_pro.utils.ImageUtils
 import com.example.motocare_pro.viewmodel.GarrageViewModel
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
-import coil3.compose.AsyncImage
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.layout.ContentScale
-import com.example.motocare_pro.R
+
 class AddGarrageActivity : ComponentActivity() {
-    lateinit var imageUtils: ImageUtils
-    var selectedImageUri by mutableStateOf<Uri?>(null)
+
+    private val garrageViewModel by lazy { GarrageViewModel(GarrageRepoImpl()) }
+
+    private lateinit var imageUtils: ImageUtils
+    private var selectedImageUri by mutableStateOf<Uri?>(null)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+
         imageUtils = ImageUtils(this, this)
         imageUtils.registerLaunchers { uri ->
             selectedImageUri = uri
+            Log.d("AddGarrage", "selectedImageUri = $uri")
         }
+
         setContent {
             AddGarrageBody(
                 selectedImageUri = selectedImageUri,
-                onPickImage = { imageUtils.launchImagePicker() }
+                onPickImage = { imageUtils.launchImagePicker() },
+                garrageViewModel = garrageViewModel
             )
         }
     }
@@ -73,18 +81,16 @@ class AddGarrageActivity : ComponentActivity() {
 @Composable
 fun AddGarrageBody(
     selectedImageUri: Uri?,
-    onPickImage: () -> Unit
+    onPickImage: () -> Unit,
+    garrageViewModel: GarrageViewModel
 ) {
-
-
     var gName by remember { mutableStateOf("") }
     var gLocation by remember { mutableStateOf("") }
     var gContact by remember { mutableStateOf("") }
+    var isUploading by remember { mutableStateOf(false) }
 
     val context = LocalContext.current
     val activity = context as? Activity
-
-    val garrageViewModel = remember { GarrageViewModel(GarrageRepoImpl()) }
 
     Scaffold { padding ->
         LazyColumn(
@@ -93,6 +99,7 @@ fun AddGarrageBody(
                 .padding(padding)
         ) {
             item {
+
                 Text(
                     "Add Garrage",
                     modifier = Modifier.fillMaxWidth(),
@@ -103,6 +110,7 @@ fun AddGarrageBody(
                         fontWeight = FontWeight.Bold
                     )
                 )
+
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -110,9 +118,7 @@ fun AddGarrageBody(
                         .clickable(
                             indication = null,
                             interactionSource = remember { MutableInteractionSource() }
-                        ) {
-                            onPickImage()
-                        }
+                        ) { onPickImage() }
                         .padding(10.dp)
                 ) {
                     if (selectedImageUri != null) {
@@ -124,7 +130,7 @@ fun AddGarrageBody(
                         )
                     } else {
                         Image(
-                            painterResource(R.drawable.placeholder),
+                            painter = painterResource(R.drawable.placeholder),
                             contentDescription = null,
                             modifier = Modifier.fillMaxSize(),
                             contentScale = ContentScale.Crop
@@ -132,17 +138,13 @@ fun AddGarrageBody(
                     }
                 }
 
-                Spacer(modifier = Modifier.height(50.dp))
+                Spacer(modifier = Modifier.height(20.dp))
+
                 OutlinedTextField(
                     value = gName,
-                    onValueChange = { data ->
-                        gName = data
-                    },
+                    onValueChange = { gName = it },
                     shape = RoundedCornerShape(15.dp),
-                    placeholder = {
-                        Text("Garrage name")
-                    },
-
+                    placeholder = { Text("Garrage name") },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 15.dp),
@@ -152,23 +154,16 @@ fun AddGarrageBody(
                         focusedIndicatorColor = Blue,
                         unfocusedIndicatorColor = Color.Transparent
                     )
-
                 )
 
                 Spacer(modifier = Modifier.height(15.dp))
 
                 OutlinedTextField(
                     value = gContact,
-                    onValueChange = { data ->
-                        gContact = data
-                    },
+                    onValueChange = { gContact = it },
                     shape = RoundedCornerShape(15.dp),
-                    placeholder = {
-                        Text("Garrage Contact")
-                    },
-                    keyboardOptions = KeyboardOptions(
-                        keyboardType = KeyboardType.Number
-                    ),
+                    placeholder = { Text("Garrage Contact") },
+                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 15.dp),
@@ -178,19 +173,15 @@ fun AddGarrageBody(
                         focusedIndicatorColor = Blue,
                         unfocusedIndicatorColor = Color.Transparent
                     )
-
                 )
 
                 Spacer(modifier = Modifier.height(15.dp))
+
                 OutlinedTextField(
                     value = gLocation,
-                    onValueChange = { data ->
-                        gLocation = data
-                    },
+                    onValueChange = { gLocation = it },
                     shape = RoundedCornerShape(15.dp),
-                    placeholder = {
-                        Text("Garrage Location")
-                    },
+                    placeholder = { Text("Garrage Location") },
                     maxLines = 5,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -201,51 +192,72 @@ fun AddGarrageBody(
                         focusedIndicatorColor = Blue,
                         unfocusedIndicatorColor = Color.Transparent
                     )
-
                 )
 
                 Spacer(modifier = Modifier.height(15.dp))
-                Button(
-                    onClick = {
-                        val model = GarrageModel(
-                            "",
-                            gName,
-                            gLocation,
-                            gContact
-                        )
-                        garrageViewModel.addGarrage(model) { success, message ->
-                            if (success) {
-                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-                                activity?.finish()
-                            } else {
-                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
 
+                Button(
+                    enabled = !isUploading,
+                    onClick = {
+                        if (gName.isBlank() || gContact.isBlank() || gLocation.isBlank()) {
+                            Toast.makeText(context, "Fill all fields", Toast.LENGTH_SHORT).show()
+                            return@Button
+                        }
+
+                        if (selectedImageUri == null) {
+                            Toast.makeText(context, "Please select image", Toast.LENGTH_SHORT).show()
+                            return@Button
+                        }
+
+                        isUploading = true
+                        Log.d("UPLOAD", "Selected URI: $selectedImageUri")
+
+                        // 1) Upload image to Cloudinary
+                        garrageViewModel.uploadImage(context, selectedImageUri!!) { imageUrl ->
+                            Log.d("UPLOAD", "Cloudinary URL: $imageUrl")
+
+                            if (imageUrl.isNullOrBlank()) {
+                                isUploading = false
+                                Toast.makeText(context, "Image upload failed", Toast.LENGTH_SHORT).show()
+                                return@uploadImage
+                            }
+
+                            // 2) Create model with image URL
+                            val model = GarrageModel(
+                                garrageId = "",
+                                name = gName.trim(),
+                                location = gLocation.trim(),
+                                contact = gContact.trim(),
+                                image = imageUrl
+                            )
+
+                            // 3) Save to Firebase Realtime Database
+                            garrageViewModel.addGarrage(model) { success, message ->
+                                isUploading = false
+                                Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                                if (success) activity?.finish()
                             }
                         }
                     },
-                    elevation = ButtonDefaults.buttonElevation(
-                        defaultElevation = 10.dp
-
-                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .height(60.dp)
                         .padding(horizontal = 15.dp),
-                    shape = RoundedCornerShape(10.dp),
-
-                    ) {
-                    Text("Add Garrage")
+                    shape = RoundedCornerShape(10.dp)
+                ) {
+                    Text(if (isUploading) "Uploading..." else "Add Garrage")
                 }
-
             }
         }
     }
 }
+
 @Preview
 @Composable
 fun AddGarragePreview() {
     AddGarrageBody(
-        selectedImageUri = null, // or pass a mock Uri if needed
-        onPickImage = {} // no-op
+        selectedImageUri = null,
+        onPickImage = {},
+        garrageViewModel = GarrageViewModel(GarrageRepoImpl())
     )
 }
