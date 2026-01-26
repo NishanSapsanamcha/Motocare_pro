@@ -99,7 +99,7 @@ fun loginUI() {
 
             Spacer(modifier = Modifier.height(40.dp))
 
-            // LOGO
+            // LOGO Changes made
             Image(
                 painter = painterResource(id = R.drawable.logo),
                 contentDescription = "MotoCare Pro Logo",

@@ -48,7 +48,7 @@ fun DashboardUI() {
     val auth = remember { FirebaseAuth.getInstance() }
     var fullName by remember { mutableStateOf("User") }
 
-    // ✅ Load name (Firestore first, fallback to displayName/email)
+    // Load name (Firestore first, fallback to displayName/email)
     LaunchedEffect(Unit) {
         val user = auth.currentUser
         if (user == null) {
@@ -125,7 +125,7 @@ fun DashboardUI() {
                         modifier = Modifier.fillMaxWidth()
                     )
 
-                    // ✅ Now fullName is defined and will update automatically
+                    // Full name will be shown in dashboard
                     Text(
                         "Hello, $fullName",
                         modifier = Modifier
