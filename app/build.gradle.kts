@@ -70,4 +70,6 @@ dependencies {
     implementation("io.coil-kt.coil3:coil-network-okhttp:3.3.0")
     implementation("com.cloudinary:cloudinary-android:2.1.0")
     implementation("androidx.compose.runtime:runtime-livedata")
+    testImplementation("org.mockito:mockito-core:5.11.0")
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.2.1")
 }
