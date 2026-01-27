@@ -40,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -161,7 +162,7 @@ fun loginUI() {
                             keyboardType = KeyboardType.Email
                         ),
                         modifier = Modifier
-                            .fillMaxWidth(),
+                            .fillMaxWidth().testTag("email"),
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.White,
                             unfocusedContainerColor = Color.White,
@@ -203,7 +204,7 @@ fun loginUI() {
                             keyboardType = KeyboardType.Password
                         ),
                         modifier = Modifier
-                            .fillMaxWidth(),
+                            .fillMaxWidth().testTag("password"),
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.White,
                             unfocusedContainerColor = Color.White,
@@ -258,7 +259,7 @@ fun loginUI() {
                         ),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(56.dp),
+                            .height(56.dp).testTag("login"),
                         shape = RoundedCornerShape(12.dp)
                     ) {
                         Text("Log In")
@@ -277,7 +278,7 @@ fun loginUI() {
                     }
                 },
                 modifier = Modifier
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 16.dp).testTag("register")
                     .clickable {
                         val intent = Intent(context, RegistrationActivity::class.java)
                         context.startActivity(intent)

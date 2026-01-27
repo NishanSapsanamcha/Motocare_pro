@@ -33,6 +33,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -164,7 +165,7 @@ fun RegisterBody() {
                         onValueChange = { fullName = it },
                         shape = RoundedCornerShape(15.dp),
                         placeholder = { Text("Full Name") },
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().testTag("fullName"),
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.White,
                             unfocusedContainerColor = Color.White,
@@ -184,7 +185,7 @@ fun RegisterBody() {
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Email
                         ),
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().testTag("email"),
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.White,
                             unfocusedContainerColor = Color.White,
@@ -204,7 +205,7 @@ fun RegisterBody() {
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Phone
                         ),
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().testTag("phone"),
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.White,
                             unfocusedContainerColor = Color.White,
@@ -248,7 +249,7 @@ fun RegisterBody() {
                         keyboardOptions = KeyboardOptions(
                             keyboardType = KeyboardType.Password
                         ),
-                        modifier = Modifier.fillMaxWidth(),
+                        modifier = Modifier.fillMaxWidth().testTag("password"),
                         colors = TextFieldDefaults.colors(
                             focusedContainerColor = Color.White,
                             unfocusedContainerColor = Color.White,
@@ -276,6 +277,7 @@ fun RegisterBody() {
                         Checkbox(
                             checked = terms,
                             onCheckedChange = { terms = it },
+                            modifier = Modifier.fillMaxWidth().testTag("terms"),
                             colors = CheckboxDefaults.colors(
                                 checkedColor = MotoOrange,
                                 checkmarkColor = White
@@ -371,7 +373,7 @@ fun RegisterBody() {
                         ),
                         modifier = Modifier
                             .fillMaxWidth()
-                            .height(56.dp),
+                            .height(56.dp).testTag("registerBtn"),
                         shape = RoundedCornerShape(12.dp),
                         colors = ButtonDefaults.buttonColors(
                             containerColor = MotoOrange,
